@@ -17,11 +17,15 @@ type Props = {
 };
 
 export function EntitiesSection({ panToLocation, markers, onDelete }: Props) {
-  console.log(markers);
-
   return (
-    <div className={clsx("w-3/4 mx-auto rounded-lg shadow-md", "bg-white")}>
-      <div className="grid grid-cols-3">
+    <div
+      className={clsx(
+        "w-4/5 mx-auto rounded-lg shadow-lg",
+        "bg-white border-t-8 border-teal-400"
+        // "bg-gradient-to-l from-blue-50 to-teal-50 bg-clip-border border-transparent"
+      )}
+    >
+      <div className="grid grid-cols-3 gap-3 p-3">
         <div className="min-h-sm">
           <p
             className={clsx(
@@ -32,37 +36,43 @@ export function EntitiesSection({ panToLocation, markers, onDelete }: Props) {
           >
             Customers
           </p>
-
-          {markers.map((marker) => (
-            <div className="relative flex w-full px-6 py-2 m-3 border rounded-lg">
-              <div className="absolute -right-1 -top-1">
-                <button onClick={() => onDelete(marker)}>
-                  <FontAwesomeIcon
-                    icon={faTimesCircle}
-                    className="text-red-500"
-                  />
-                </button>
-              </div>
-              <p className="flex-1 tracking-wider text-center">{marker.id}</p>
-              {/* <div className="flex items-center justify-center"> */}
-              <UnstyledButton
-                icon={faLocationArrow}
-                placeholder="Go To Location"
-                iconSize="sm"
-                className="text-xs"
-                onClick={() =>
-                  panToLocation({ lat: marker.lat, lng: marker.lng })
-                }
-              />
-              <UnstyledButton
-                placeholder="Open"
-                iconSize="sm"
-                className="ml-2 text-xs"
-                icon={faCaretSquareDown}
-              />
-              {/* </div> */}
-            </div>
-          ))}
+          <div className="space-y-2">
+            {markers.map(
+              (marker) =>
+                marker.type === "customer" && (
+                  <div className="flex w-full px-3 py-2 bg-white border rounded-lg">
+                    <div className="absolute -right-1 -top-1">
+                      <button onClick={() => onDelete(marker)}>
+                        <FontAwesomeIcon
+                          icon={faTimesCircle}
+                          className="text-red-500"
+                        />
+                      </button>
+                    </div>
+                    <p className="flex-1 tracking-wider text-center">
+                      {marker.id}
+                    </p>
+                    {/* <div className="flex items-center justify-center"> */}
+                    <UnstyledButton
+                      icon={faLocationArrow}
+                      placeholder="Go To Location"
+                      iconSize="sm"
+                      className="text-xs"
+                      onClick={() =>
+                        panToLocation({ lat: marker.lat, lng: marker.lng })
+                      }
+                    />
+                    <UnstyledButton
+                      placeholder="Open"
+                      iconSize="sm"
+                      className="ml-2 text-xs"
+                      icon={faCaretSquareDown}
+                    />
+                    {/* </div> */}
+                  </div>
+                )
+            )}
+          </div>
         </div>
 
         <div className="min-h-sm">
@@ -75,6 +85,43 @@ export function EntitiesSection({ panToLocation, markers, onDelete }: Props) {
           >
             Drivers
           </p>
+          <div className="space-y-2">
+            {markers.map(
+              (marker) =>
+                marker.type === "driver" && (
+                  <div className="relative flex w-full px-6 py-2 border rounded-lg">
+                    <div className="absolute -right-1 -top-1">
+                      <button onClick={() => onDelete(marker)}>
+                        <FontAwesomeIcon
+                          icon={faTimesCircle}
+                          className="text-red-500"
+                        />
+                      </button>
+                    </div>
+                    <p className="flex-1 tracking-wider text-center">
+                      {marker.id}
+                    </p>
+                    {/* <div className="flex items-center justify-center"> */}
+                    <UnstyledButton
+                      icon={faLocationArrow}
+                      placeholder="Go To Location"
+                      iconSize="sm"
+                      className="text-xs"
+                      onClick={() =>
+                        panToLocation({ lat: marker.lat, lng: marker.lng })
+                      }
+                    />
+                    <UnstyledButton
+                      placeholder="Open"
+                      iconSize="sm"
+                      className="ml-2 text-xs"
+                      icon={faCaretSquareDown}
+                    />
+                    {/* </div> */}
+                  </div>
+                )
+            )}
+          </div>
         </div>
 
         <div className="min-h-sm">
@@ -87,6 +134,43 @@ export function EntitiesSection({ panToLocation, markers, onDelete }: Props) {
           >
             Stores
           </p>
+          <div className="space-y-2">
+            {markers.map(
+              (marker) =>
+                marker.type === "store" && (
+                  <div className="relative flex w-full px-6 py-2 border rounded-lg">
+                    <div className="absolute -right-1 -top-1">
+                      <button onClick={() => onDelete(marker)}>
+                        <FontAwesomeIcon
+                          icon={faTimesCircle}
+                          className="text-red-500"
+                        />
+                      </button>
+                    </div>
+                    <p className="flex-1 tracking-wider text-center">
+                      {marker.id}
+                    </p>
+                    {/* <div className="flex items-center justify-center"> */}
+                    <UnstyledButton
+                      icon={faLocationArrow}
+                      placeholder="Go To Location"
+                      iconSize="sm"
+                      className="text-xs"
+                      onClick={() =>
+                        panToLocation({ lat: marker.lat, lng: marker.lng })
+                      }
+                    />
+                    <UnstyledButton
+                      placeholder="Open"
+                      iconSize="sm"
+                      className="ml-2 text-xs"
+                      icon={faCaretSquareDown}
+                    />
+                    {/* </div> */}
+                  </div>
+                )
+            )}
+          </div>
         </div>
       </div>
     </div>

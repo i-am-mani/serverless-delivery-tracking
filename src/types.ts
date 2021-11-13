@@ -13,7 +13,6 @@ export type Customer = {
 
 export type Product = {
   id: string;
-  name: string;
   price: number;
 };
 

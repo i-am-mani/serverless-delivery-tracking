@@ -1,12 +1,13 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import UniversalMap, { MapMarker } from "./components/UniversalMap";
 import { Customer } from "./types";
 import {
   createCustomer,
+  createDriver,
+  createStore,
   deleteCustomer,
-  getAllCustomers,
+  getAllEntities,
 } from "./services/ApiEndpoints";
 import imStore from "./resource/store.png";
 import imDelivery from "./resource/delivery.png";
@@ -23,14 +24,35 @@ const customerTMarker = (customer: Customer) => {
   };
 };
 
+const storeTMarker = (customer: Customer) => {
+  return {
+    id: customer.id,
+    lat: customer.location.lat,
+    lng: customer.location.lng,
+    type: "store",
+    icon: imStore,
+  };
+};
+
+const deliveryTMarker = (customer: Customer) => {
+  return {
+    id: customer.id,
+    lat: customer.location.lat,
+    lng: customer.location.lng,
+    type: "driver",
+    icon: imDelivery,
+  };
+};
+
 function App() {
-  const [customers, setCustomers] = React.useState<Customer[]>([]);
   const [markers, setMarkers] = React.useState<MapMarker[]>([]);
 
   React.useEffect(() => {
-    getAllCustomers().then((res) => {
-      setCustomers(res);
-      setMarkers(res.map(customerTMarker));
+    getAllEntities().then((res) => {
+      const cMarkers = res.customers.map(customerTMarker);
+      const sMarkers = res.stores.map(storeTMarker);
+      const dMarkers = res.drivers.map(deliveryTMarker);
+      setMarkers([...cMarkers, ...sMarkers, ...dMarkers]);
     });
   }, []);
 
@@ -50,11 +72,47 @@ function App() {
       const copy = [...markers];
       copy.push(marker);
       setMarkers(copy);
-      setCustomers([
-        ...customers,
-        { id, location: { lat, lng }, orderIds: [] },
-      ]);
       toast.success("Customer Created");
+    });
+  };
+
+  const onAddDriver = (id: string, lat: number, lng: number) => {
+    const marker: MapMarker = {
+      id: id,
+      lat: lat,
+      lng: lng,
+      type: "driver",
+      icon: imDelivery,
+    };
+
+    createDriver(id, {
+      lat: lat,
+      lng: lng,
+    }).then(() => {
+      const copy = [...markers];
+      copy.push(marker);
+      setMarkers(copy);
+      toast.success("Driver Created");
+    });
+  };
+
+  const onAddStore = (id: string, lat: number, lng: number) => {
+    const marker: MapMarker = {
+      id: id,
+      lat: lat,
+      lng: lng,
+      type: "store",
+      icon: imStore,
+    };
+
+    createStore(id, {
+      lat: lat,
+      lng: lng,
+    }).then(() => {
+      const copy = [...markers];
+      copy.push(marker);
+      setMarkers(copy);
+      toast.success("Store Created");
     });
   };
 
@@ -62,7 +120,6 @@ function App() {
     if (marker.type === "customer") {
       deleteCustomer(marker.id).then(() => {
         setMarkers(markers.filter((m) => m.id !== marker.id));
-        setCustomers(customers.filter((c) => c.id !== marker.id));
       });
     }
   };
@@ -76,6 +133,8 @@ function App() {
       <div className="w-full">
         <UniversalMap
           addCustomer={onAddCustomer}
+          addDriver={onAddDriver}
+          addStore={onAddStore}
           markers={markers}
           deleteMarker={onDeleteMarker}
         />

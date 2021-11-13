@@ -1,14 +1,9 @@
+import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import * as React from "react";
-import { GoogleMap, useLoadScript } from "@react-google-maps/api";
-import { Customer, LatLng, mapsAPIKEY } from "../types";
-import MapIconSelector, { IconType } from "./MapIconSelector";
-import { Marker } from "@react-google-maps/api";
-import imStore from "../resource/store.png";
-import imDelivery from "../resource/delivery.png";
-import imUser from "../resource/user.png";
-import { createCustomer } from "../services/ApiEndpoints";
 import { toast } from "react-toastify";
+import { LatLng, mapsAPIKEY } from "../types";
 import { EntitiesSection } from "./EntitiesSection";
+import MapIconSelector, { IconType } from "./MapIconSelector";
 
 const defaultProps = {
   center: {
@@ -39,11 +34,19 @@ export type MapMarker = {
 type Props = {
   markers: MapMarker[];
   addCustomer: (id: string, lat: number, lng: number) => void;
+  addDriver: (id: string, lat: number, lng: number) => void;
+  addStore: (id: string, lat: number, lng: number) => void;
   deleteMarker: (marker: MapMarker) => void;
 };
 
 // const libraries: any[] = ["places"];
-function UniversalMap({ markers, addCustomer, deleteMarker }: Props) {
+function UniversalMap({
+  markers,
+  addCustomer,
+  deleteMarker,
+  addDriver,
+  addStore,
+}: Props) {
   const mapRef = React.useRef<any>(null); // GoogleMap
   //   const [markers, setMarkers] = React.useState<MapMarker[]>([]); // Markers->Cust|Driver|Store
   const inputNameRef = React.createRef<HTMLInputElement>();
@@ -69,19 +72,21 @@ function UniversalMap({ markers, addCustomer, deleteMarker }: Props) {
   const onMapClick = React.useCallback(
     async (props: google.maps.MapMouseEvent) => {
       const latlng = props.latLng;
-
-      if (latlng) {
-        if (activeMapIcon === "customer") {
-          const ref = inputNameRef.current;
-          if (ref) {
-            const name = ref.value;
+      const ref = inputNameRef.current;
+      if (ref) {
+        const name = ref.value;
+        if (!name) {
+          toast.error("Please enter id/name");
+        }
+        if (latlng) {
+          if (activeMapIcon === "customer") {
             addCustomer(name, latlng.lat(), latlng.lng());
-            ref.value = "";
+          } else if (activeMapIcon === "driver") {
+            addDriver(name, latlng.lat(), latlng.lng());
+          } else if (activeMapIcon === "store") {
+            addStore(name, latlng.lat(), latlng.lng());
           }
-        } else if (activeMapIcon === "driver") {
-          //   icon = imDelivery;
-        } else if (activeMapIcon === "store") {
-          //   icon = imStore;
+          ref.value = "";
         }
       }
     },
