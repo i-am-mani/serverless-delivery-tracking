@@ -9,6 +9,7 @@ import * as React from "react";
 import { LatLng } from "../types";
 import { MapMarker } from "./UniversalMap";
 import UnstyledButton from "./UnstyledButton";
+import { useNavigate, Link } from "react-router-dom";
 
 type Props = {
   panToLocation: (location: LatLng) => void;
@@ -17,6 +18,7 @@ type Props = {
 };
 
 export function EntitiesSection({ panToLocation, markers, onDelete }: Props) {
+  let navigate = useNavigate();
   return (
     <div
       className={clsx(
@@ -160,12 +162,14 @@ export function EntitiesSection({ panToLocation, markers, onDelete }: Props) {
                         panToLocation({ lat: marker.lat, lng: marker.lng })
                       }
                     />
-                    <UnstyledButton
-                      placeholder="Open"
-                      iconSize="sm"
-                      className="ml-2 text-xs"
-                      icon={faCaretSquareDown}
-                    />
+                    <Link to={`stores/${marker.id}`} target="_blank">
+                      <UnstyledButton
+                        placeholder="Open"
+                        iconSize="sm"
+                        className="ml-2 text-xs"
+                        icon={faCaretSquareDown}
+                      />
+                    </Link>
                     {/* </div> */}
                   </div>
                 )
