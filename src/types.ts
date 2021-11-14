@@ -23,7 +23,7 @@ export type StoreItem = {
 
 export type Store = {
   id: string;
-  storeItems: StoreItem[];
+  products: StoreItem[];
   location: LatLng;
 };
 

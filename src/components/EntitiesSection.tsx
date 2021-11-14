@@ -40,7 +40,7 @@ export function EntitiesSection({ panToLocation, markers, onDelete }: Props) {
             {markers.map(
               (marker) =>
                 marker.type === "customer" && (
-                  <div className="flex w-full px-3 py-2 bg-white border rounded-lg">
+                  <div className="relative flex w-full px-3 py-2 bg-white border rounded-lg">
                     <div className="absolute -right-1 -top-1">
                       <button onClick={() => onDelete(marker)}>
                         <FontAwesomeIcon

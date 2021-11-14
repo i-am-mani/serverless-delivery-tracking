@@ -1,15 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
+
 import reportWebVitals from "./reportWebVitals";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Main from "./Main";
 
 ReactDOM.render(
   <React.StrictMode>
     <ToastContainer />
-    <App />
+    <Main />
   </React.StrictMode>,
   document.getElementById("root")
 );
