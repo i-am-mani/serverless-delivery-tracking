@@ -10,6 +10,7 @@ type Props = {
   icon: IconProp;
   iconSize?: FontAwesomeIconProps["size"];
   placeholder: string;
+  disabled?: boolean;
   placeholderClassName?: string;
   onClick?: () => void;
 };
@@ -19,6 +20,7 @@ function UnstyledButton({
   iconSize,
   className: styles,
   placeholder,
+  disabled = false,
   placeholderClassName,
   onClick,
 }: Props) {
@@ -32,6 +34,7 @@ function UnstyledButton({
         "px-2 py-1"
       )}
       onClick={onClick}
+      disabled={disabled}
     >
       <FontAwesomeIcon icon={icon} size={iconSize} />
       <p className={placeholderClassName}>{placeholder}</p>

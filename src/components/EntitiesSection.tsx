@@ -64,12 +64,14 @@ export function EntitiesSection({ panToLocation, markers, onDelete }: Props) {
                         panToLocation({ lat: marker.lat, lng: marker.lng })
                       }
                     />
-                    <UnstyledButton
-                      placeholder="Open"
-                      iconSize="sm"
-                      className="ml-2 text-xs"
-                      icon={faCaretSquareDown}
-                    />
+                    <Link to={`customers/${marker.id}`} target="_blank">
+                      <UnstyledButton
+                        placeholder="Open"
+                        iconSize="sm"
+                        className="ml-2 text-xs"
+                        icon={faCaretSquareDown}
+                      />
+                    </Link>
                     {/* </div> */}
                   </div>
                 )
@@ -113,12 +115,14 @@ export function EntitiesSection({ panToLocation, markers, onDelete }: Props) {
                         panToLocation({ lat: marker.lat, lng: marker.lng })
                       }
                     />
-                    <UnstyledButton
-                      placeholder="Open"
-                      iconSize="sm"
-                      className="ml-2 text-xs"
-                      icon={faCaretSquareDown}
-                    />
+                    <Link to={`drivers/${marker.id}`} target="_blank">
+                      <UnstyledButton
+                        placeholder="Open"
+                        iconSize="sm"
+                        className="ml-2 text-xs"
+                        icon={faCaretSquareDown}
+                      />
+                    </Link>
                     {/* </div> */}
                   </div>
                 )

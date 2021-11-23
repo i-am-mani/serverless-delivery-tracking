@@ -22,7 +22,7 @@ type Props = {
   increment: () => void;
 };
 
-function QuantityPicker({ count, decrement, increment }: Props) {
+export function QuantityPicker({ count, decrement, increment }: Props) {
   return (
     <div className="flex space-x-1">
       <button onClick={decrement}>

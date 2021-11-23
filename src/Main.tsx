@@ -1,8 +1,8 @@
 import * as React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
-import CustomerPage from "./pages/CustomerPage";
-import DriverPage from "./pages/DriverPage";
+import CustomerPage from "./pages/CustomerPage/index";
+import DriverPage from "./pages/DriverPage/index";
 import StorePage from "./pages/StorePage";
 
 function Main() {

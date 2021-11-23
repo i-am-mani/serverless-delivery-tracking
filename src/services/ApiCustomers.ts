@@ -45,3 +45,16 @@ export async function deleteCustomer(customerId: string) {
     return Promise.reject();
   }
 }
+
+export async function getCustomer(id: string) {
+  try {
+    const response = await AxiosInstance.get(API.Customer(id));
+    return response.status === 200
+      ? Promise.resolve(response.data.Item)
+      : Promise.reject;
+  } catch (e) {
+    console.log(e);
+
+    return Promise.reject();
+  }
+}

@@ -8,6 +8,8 @@ export async function getAllStores() {
     if (response.status === 200) {
       const body = response.data;
       const items = body.Items;
+      console.log(response);
+
       return items;
     } else {
       return Promise.reject();

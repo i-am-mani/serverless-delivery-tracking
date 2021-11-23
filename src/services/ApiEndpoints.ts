@@ -22,6 +22,12 @@ export namespace API {
 
   export const Drivers = `/drivers`;
   export const Driver = (id: string) => `${Drivers}/${id}`;
+
+  export const Orders = `/orders`;
+  export const Order = (id: string) => `${Orders}/${id}`;
+
+  export const AcceptOrder = "/drivers/accept-order";
+  export const DeliverOrder = "/drivers/order-delivered";
 }
 
 export async function getAllEntities() {

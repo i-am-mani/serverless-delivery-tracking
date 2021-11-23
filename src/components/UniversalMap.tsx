@@ -1,3 +1,5 @@
+import { faLocationArrow } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import * as React from "react";
 import { toast } from "react-toastify";

@@ -29,7 +29,9 @@ export type Store = {
 
 export type Driver = {
   id: string;
-  location: LatLng
+  currentLocation: LatLng;
+  activeOrderId: string | null;
+  orderIds: string[];
 };
 
 export type OrderItem = {
@@ -40,7 +42,18 @@ export type OrderItem = {
 export type Order = {
   id: string;
   driverId: string;
-  items: OrderItem[];
-  location: LatLng
+  customerId: string;
+  storeId: string;
   path: any;
+  items: OrderItem[];
+  currentLocation: LatLng;
+  deliveryStatus: "pending" | "delivered";
+};
+
+export type DriverNotification = {
+  id: string;
+  storeId: string;
+  customerId: string;
+  orderId: string;
+  creationTime: string;
 };
